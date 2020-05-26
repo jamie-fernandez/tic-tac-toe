@@ -1,14 +1,14 @@
 <template>
     <div class="game-board">
-        <div class="box">X</div>
-        <div class="box">X</div>
-        <div class="box">X</div>
-        <div class="box">X</div>
-        <div class="box">X</div>
-        <div class="box">X</div>
-        <div class="box">X</div>
-        <div class="box">X</div>
-        <div class="box">X</div>
+        <div id="1" class="box">X</div>
+        <div id="2" class="box">X</div>
+        <div id="3" class="box">X</div>
+        <div id="4" class="box">X</div>
+        <div id="5" class="box">X</div>
+        <div id="6" class="box">X</div>
+        <div id="7" class="box">X</div>
+        <div id="8" class="box">X</div>
+        <div id="9" class="box">X</div>
     </div>
 </template>
 <script>
