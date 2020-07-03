@@ -31,7 +31,7 @@
 </template>
 <script>
 export default {
-    name: 'keyboard',
+    name: 'Board',
     data() {
         return {
             isGameOver: false,
