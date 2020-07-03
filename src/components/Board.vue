@@ -1,14 +1,32 @@
 <template>
     <div class="game-board">
-        <div id="1" class="box">X</div>
-        <div id="2" class="box">X</div>
-        <div id="3" class="box">X</div>
-        <div id="4" class="box">X</div>
-        <div id="5" class="box">X</div>
-        <div id="6" class="box">X</div>
-        <div id="7" class="box">X</div>
-        <div id="8" class="box">X</div>
-        <div id="9" class="box">X</div>
+        <div id="1">
+            <button class="box">X</button>
+        </div>
+        <div id="2">
+            <button class="box">X</button>
+        </div>
+        <div id="3">
+            <button class="box">X</button>
+        </div>
+        <div id="4">
+            <button class="box">X</button>
+        </div>
+        <div id="5">
+            <button class="box">X</button>
+        </div>
+        <div id="6">
+            <button class="box">X</button>
+        </div>
+        <div id="7">
+            <button class="box">X</button>
+        </div>
+        <div id="8">
+            <button class="box">X</button>
+        </div>
+        <div id="9">
+            <button class="box">X</button>
+        </div>
     </div>
 </template>
 <script>
@@ -18,8 +36,8 @@ export default {
         return {
             isGameOver: false,
             isPlayersTurn: true,
-            symbolComputer: '',
-            symbolPlayer: ''
+            computerSymbol: 'X',
+            playerSymbol: 'O'
         }
     },
     methods: {}
@@ -37,5 +55,6 @@ export default {
     line-height: 7rem;
     cursor: pointer;
     border: solid;
+    width: 146px;
 }
 </style>
