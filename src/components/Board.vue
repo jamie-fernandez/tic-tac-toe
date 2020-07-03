@@ -1,31 +1,31 @@
 <template>
     <div class="game-board">
         <div id="1">
-            <button class="box">X</button>
+            <button class="box" @click="logic()">X</button>
         </div>
         <div id="2">
-            <button class="box">X</button>
+            <button class="box" @click="logic()">X</button>
         </div>
         <div id="3">
-            <button class="box">X</button>
+            <button class="box" @click="logic()">X</button>
         </div>
         <div id="4">
-            <button class="box">X</button>
+            <button class="box" @click="logic()">X</button>
         </div>
         <div id="5">
-            <button class="box">X</button>
+            <button class="box" @click="logic()">X</button>
         </div>
         <div id="6">
-            <button class="box">X</button>
+            <button class="box" @click="logic()">X</button>
         </div>
         <div id="7">
-            <button class="box">X</button>
+            <button class="box" @click="logic()">X</button>
         </div>
         <div id="8">
-            <button class="box">X</button>
+            <button class="box" @click="logic()">X</button>
         </div>
         <div id="9">
-            <button class="box">X</button>
+            <button class="box" @click="logic()">X</button>
         </div>
     </div>
 </template>
@@ -40,7 +40,11 @@ export default {
             playerSymbol: 'O'
         }
     },
-    methods: {}
+    methods: {
+        logic() {
+            console.log();
+        },
+    }
 }
 </script>
 <style scoped>
