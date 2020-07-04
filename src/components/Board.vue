@@ -37,7 +37,7 @@ export default {
             isGameOver: false,
             isPlayersTurn: true,
             computerSymbol: 'X',
-            playerSymbol: 'O'
+            playerSymbol: 'O',
         }
     },
     methods: {
@@ -50,15 +50,17 @@ export default {
 <style scoped>
 .game-board {
     display: grid;
-    grid-template-columns: repeat(3, 10%);
     justify-content: center;
-
+    grid-template-columns: repeat(3, 10%);
 }
 .box {
-    font-size: 4rem;
-    line-height: 7rem;
+    font-family: "Permanent Marker", cursive;
+    width: 145px;
+    height: 100px;
+    box-shadow: 0 0 0 1px #333333;
+    border: 1px solid #333333;
     cursor: pointer;
-    border: solid;
-    width: 146px;
+    line-height: 100px;
+    font-size: 60px;
 }
 </style>
