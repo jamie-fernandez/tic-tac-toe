@@ -42,6 +42,7 @@ export const store = new Vuex.Store({
             clickedCell.innerHTML = this.currentPlayer;
         },
         handleResultValidation() {
+            //Win Check
             let roundWon = false;
             for (let i = 0; i <= 7; i++) {
                 const winCondition = this.winningConditions[i];
@@ -62,9 +63,19 @@ export const store = new Vuex.Store({
                 this.gameActive = false;
                 return;
             }
+
+            //Draw Check
+            let roundDraw = !this.gameState.includes("");
+            if (roundDraw) {
+                this.statusDisplay.innerHTML = this.drawMessage;
+                this.gameActive = false;
+                return;
+            }
+
+            this.handlePlayerChange();
         },
         handlePlayerChange() {},
         handleRestartGame() {}
     },
     mutations: {}
-})
+});
