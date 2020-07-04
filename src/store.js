@@ -5,7 +5,16 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        winningConditions: [
+        isGameOver: false,
+        isPlayersTurn: true,
+        computerSymbol: 'O',
+        playerSymbol: 'X',
+        currentPlayer: 'X',
+        gameState: ['', '', '', '', '', '', '', '', ''],
+        winningMessage: `Player ${this.currentPlayer} has won!`,
+        currentPlayerTurn: `It's ${this.currentPlayer}'s turn`,
+        drawMessage: 'Game ended in a draw!',
+        winConditions: [
             [0, 1, 2],
             [3, 4, 5],
             [6, 7, 8],
