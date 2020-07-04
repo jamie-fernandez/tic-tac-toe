@@ -1,14 +1,14 @@
 <template>
     <div class="game-board">
-        <button id="1" class="box" @click="handleClick()">X</button>
-        <button id="2" class="box" @click="handleClick()">X</button>
-        <button id="3" class="box" @click="handleClick()">X</button>
-        <button id="4" class="box" @click="handleClick()">X</button>
-        <button id="5" class="box" @click="handleClick()">X</button>
-        <button id="6" class="box" @click="handleClick()">X</button>
-        <button id="7" class="box" @click="handleClick()">X</button>
-        <button id="8" class="box" @click="handleClick()">X</button>
-        <button id="9" class="box" @click="handleClick()">X</button>
+        <button data-cell="1" class="box" @click="handleClick()">X</button>
+        <button data-cell="2" class="box" @click="handleClick()">X</button>
+        <button data-cell="3" class="box" @click="handleClick()">O</button>
+        <button data-cell="4" class="box" @click="handleClick()">X</button>
+        <button data-cell="5" class="box" @click="handleClick()">O</button>
+        <button data-cell="6" class="box" @click="handleClick()">X</button>
+        <button data-cell="7" class="box" @click="handleClick()">X</button>
+        <button data-cell="8" class="box" @click="handleClick()">O</button>
+        <button data-cell="9" class="box" @click="handleClick()">X</button>
     </div>
 </template>
 <script>
