@@ -17,7 +17,7 @@ export const store = new Vuex.Store({
         messages: {
             'winner': (currentPlayer) => `Player ${currentPlayer} has won!`,
             'turn': (currentPlayer) => `It's ${currentPlayer}/'s turn`,
-            'draw': (currentPlayer) => 'Game ended in a draw!',
+            'draw': (_currentPlayer) => 'Game ended in a draw!',
         },
         winConditions: [
             [0, 1, 2],
@@ -32,27 +32,26 @@ export const store = new Vuex.Store({
     },
     actions: {
         handleClick(context, $event) {
-            console.log($event);
             const clickedCell = $event.target;
             const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
-            if (this.gameState[clickedCellIndex] !== '' || !this.gameActive) {
+            if (context.state.gameState[clickedCellIndex] !== '' || !context.state.gameActive) {
                 return;
             }
             this.handleCellPlayed(context, clickedCell, clickedCellIndex);
             this.handleResultValidation(context);
         },
         handleCellPlayed(context, clickedCell, clickedCellIndex) {
-            this.gameState[clickedCellIndex] = this.currentPlayer;
-            clickedCell.innerHTML = this.currentPlayer;
+            context.state.gameState[clickedCellIndex] = context.state.currentPlayer;
+            clickedCell.innerHTML = context.state.currentPlayer;
         },
         handleResultValidation(context) {
             //Win Check
             let roundWon = false;
             for (let i = 0; i <= 7; i++) {
-                const winCondition = this.winningConditions[i];
-                let a = this.gameState[winCondition[0]];
-                let b = this.gameState[winCondition[1]];
-                let c = this.gameState[winCondition[2]];
+                const winCondition = context.state.winningConditions[i];
+                let a = context.state.gameState[winCondition[0]];
+                let b = context.state.gameState[winCondition[1]];
+                let c = context.state.gameState[winCondition[2]];
                 if (a === '' || b === '' || c === '') {
                     continue;
                 }
@@ -64,29 +63,29 @@ export const store = new Vuex.Store({
 
             if (roundWon) {
                 this.statusDisplay.innerHTML = context.state.messages[this.currentPlayer]('winner');
-                this.gameActive = false;
+                context.state.gameActive = false;
                 return;
             }
 
             //Draw Check
-            let roundDraw = !this.gameState.includes('');
+            let roundDraw = !context.state.gameState.includes('');
             if (roundDraw) {
                 this.statusDisplay.innerHTML = context.state.messages[this.currentPlayer]('draw');
-                this.gameActive = false;
+                context.state.gameActive = false;
                 return;
             }
 
             this.handlePlayerChange(context);
         },
         handlePlayerChange(context) {
-            this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
+            context.state.currentPlayer = context.state.currentPlayer === 'X' ? 'O' : 'X';
             this.statusDisplay.innerHTML = context.state.messages[this.currentPlayer]('turn');
         },
         handleRestartGame(context) {
-            this.gameActive = true;
-            this.currentPlayer = 'X';
-            this.statusDisplay.innerHTML = context.state.messages[this.currentPlayer]('turn');
-            this.gameState = ['', '', '', '', '', '', '', '', ''];
+            context.state.gameActive = true;
+            context.state.currentPlayer = 'X';
+            context.state.statusDisplay.innerHTML = context.state.messages[this.currentPlayer]('turn');
+            context.state.gameState = ['', '', '', '', '', '', '', '', ''];
             document.querySelectorAll('.box').forEach(cell => cell.innerHTML = '');
         },
     },
