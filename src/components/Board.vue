@@ -1,30 +1,30 @@
 <template>
     <div class="game-board">
-        <button data-cell="1" class="box" @click="handleClick()">X</button>
-        <button data-cell="2" class="box" @click="handleClick()">X</button>
-        <button data-cell="3" class="box" @click="handleClick()">O</button>
-        <button data-cell="4" class="box" @click="handleClick()">X</button>
-        <button data-cell="5" class="box" @click="handleClick()">O</button>
-        <button data-cell="6" class="box" @click="handleClick()">X</button>
-        <button data-cell="7" class="box" @click="handleClick()">X</button>
-        <button data-cell="8" class="box" @click="handleClick()">O</button>
-        <button data-cell="9" class="box" @click="handleClick()">X</button>
+        <button data-cell="1" class="box" @click="handleClick($event)"></button>
+        <button data-cell="2" class="box" @click="handleClick($event)"></button>
+        <button data-cell="3" class="box" @click="handleClick($event)"></button>
+        <button data-cell="4" class="box" @click="handleClick($event)"></button>
+        <button data-cell="5" class="box" @click="handleClick($event)"></button>
+        <button data-cell="6" class="box" @click="handleClick($event)"></button>
+        <button data-cell="7" class="box" @click="handleClick($event)"></button>
+        <button data-cell="8" class="box" @click="handleClick($event)"></button>
+        <button data-cell="9" class="box" @click="handleClick($event)"></button>
     </div>
 </template>
 <script>
+import { mapActions } from 'vuex';
+
 export default {
     name: 'Board',
     data() {
         return {}
     },
     methods: {
-        handleClick() {
-            console.log();
-        },
+        ...mapActions(['handleClick']),
     }
 }
 </script>
-<style scoped>
+<style>
 .game-board {
     display: grid;
     justify-content: center;

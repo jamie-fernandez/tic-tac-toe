@@ -4,6 +4,8 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
+    getters: {},
+    mutations: {},
     state: {
         isGameOver: false,
         isPlayersTurn: true,
@@ -12,9 +14,11 @@ export const store = new Vuex.Store({
         playerSymbol: 'X',
         currentPlayer: 'X',
         gameState: ['', '', '', '', '', '', '', '', ''],
-        winningMessage: `Player ${this.currentPlayer} has won!`,
-        currentPlayerTurn: `It's ${this.currentPlayer}'s turn`,
-        drawMessage: 'Game ended in a draw!',
+        messages: {
+            'winner': (currentPlayer) => `Player ${currentPlayer} has won!`,
+            'turn': (currentPlayer) => `It's ${currentPlayer}/'s turn`,
+            'draw': (currentPlayer) => 'Game ended in a draw!',
+        },
         winConditions: [
             [0, 1, 2],
             [3, 4, 5],
@@ -26,22 +30,22 @@ export const store = new Vuex.Store({
             [2, 4, 6]
         ],
     },
-    getters: {},
     actions: {
-        handleCellClick($event) {
+        handleClick(context, $event) {
+            console.log($event);
             const clickedCell = $event.target;
             const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
             if (this.gameState[clickedCellIndex] !== '' || !this.gameActive) {
                 return;
             }
-            this.handleCellPlayed(clickedCell, clickedCellIndex);
-            this.handleResultValidation();
+            this.handleCellPlayed(context, clickedCell, clickedCellIndex);
+            this.handleResultValidation(context);
         },
-        handleCellPlayed(clickedCell, clickedCellIndex) {
+        handleCellPlayed(context, clickedCell, clickedCellIndex) {
             this.gameState[clickedCellIndex] = this.currentPlayer;
             clickedCell.innerHTML = this.currentPlayer;
         },
-        handleResultValidation() {
+        handleResultValidation(context) {
             //Win Check
             let roundWon = false;
             for (let i = 0; i <= 7; i++) {
@@ -59,7 +63,7 @@ export const store = new Vuex.Store({
             }
 
             if (roundWon) {
-                this.statusDisplay.innerHTML = this.winningMessage;
+                this.statusDisplay.innerHTML = context.state.messages[this.currentPlayer]('winner');
                 this.gameActive = false;
                 return;
             }
@@ -67,24 +71,23 @@ export const store = new Vuex.Store({
             //Draw Check
             let roundDraw = !this.gameState.includes('');
             if (roundDraw) {
-                this.statusDisplay.innerHTML = this.drawMessage;
+                this.statusDisplay.innerHTML = context.state.messages[this.currentPlayer]('draw');
                 this.gameActive = false;
                 return;
             }
 
-            this.handlePlayerChange();
+            this.handlePlayerChange(context);
         },
-        handlePlayerChange() {
+        handlePlayerChange(context) {
             this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
-            this.statusDisplay.innerHTML = this.currentPlayerTurn;
+            this.statusDisplay.innerHTML = context.state.messages[this.currentPlayer]('turn');
         },
-        handleRestartGame() {
+        handleRestartGame(context) {
             this.gameActive = true;
             this.currentPlayer = 'X';
-            this.statusDisplay.innerHTML = this.currentPlayerTurn;
+            this.statusDisplay.innerHTML = context.state.messages[this.currentPlayer]('turn');
             this.gameState = ['', '', '', '', '', '', '', '', ''];
             document.querySelectorAll('.box').forEach(cell => cell.innerHTML = '');
-        }
+        },
     },
-    mutations: {}
 });
