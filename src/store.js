@@ -17,7 +17,7 @@ export const store = new Vuex.Store({
         messages: {
             'winner': (currentPlayer) => `Player ${currentPlayer} has won!`,
             'turn': (currentPlayer) => `It's ${currentPlayer}/'s turn`,
-            'draw': (_currentPlayer) => 'Game ended in a draw!',
+            'draw': () => 'Game ended in a draw!',
         },
         winConditions: [
             [0, 1, 2],
@@ -77,6 +77,7 @@ export const store = new Vuex.Store({
 
             this.handlePlayerChange(context);
         },
+        // Change handlePlayerChange and handleRestartGame to use Mutations
         handlePlayerChange(context) {
             context.state.currentPlayer = context.state.currentPlayer === 'X' ? 'O' : 'X';
             this.statusDisplay.innerHTML = context.state.messages[this.currentPlayer]('turn');
