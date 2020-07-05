@@ -1,14 +1,14 @@
 <template>
     <div class="game-board">
-        <button data-cell="1" class="box" @click="handleClick($event)"></button>
-        <button data-cell="2" class="box" @click="handleClick($event)"></button>
-        <button data-cell="3" class="box" @click="handleClick($event)"></button>
-        <button data-cell="4" class="box" @click="handleClick($event)"></button>
-        <button data-cell="5" class="box" @click="handleClick($event)"></button>
-        <button data-cell="6" class="box" @click="handleClick($event)"></button>
-        <button data-cell="7" class="box" @click="handleClick($event)"></button>
-        <button data-cell="8" class="box" @click="handleClick($event)"></button>
-        <button data-cell="9" class="box" @click="handleClick($event)"></button>
+        <button data-cell-index="1" class="box" @click="handleClick($event)"></button>
+        <button data-cell-index="2" class="box" @click="handleClick($event)"></button>
+        <button data-cell-index="3" class="box" @click="handleClick($event)"></button>
+        <button data-cell-index="4" class="box" @click="handleClick($event)"></button>
+        <button data-cell-index="5" class="box" @click="handleClick($event)"></button>
+        <button data-cell-index="6" class="box" @click="handleClick($event)"></button>
+        <button data-cell-index="7" class="box" @click="handleClick($event)"></button>
+        <button data-cell-index="8" class="box" @click="handleClick($event)"></button>
+        <button data-cell-index="9" class="box" @click="handleClick($event)"></button>
     </div>
 </template>
 <script>

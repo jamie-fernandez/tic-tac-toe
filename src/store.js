@@ -5,11 +5,10 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     getters: {},
-    mutations: {},
     state: {
         isGameOver: false,
         isPlayersTurn: true,
-        gameActive: false,
+        gameActive: true, // User will need a way to start game later
         computerSymbol: 'O',
         playerSymbol: 'X',
         currentPlayer: 'X',
@@ -41,7 +40,7 @@ export const store = new Vuex.Store({
             this.handleResultValidation(context);
         },
         handleCellPlayed(context, clickedCell, clickedCellIndex) {
-            context.state.gameState[clickedCellIndex] = context.state.currentPlayer;
+            context.commit('SET_GAME_STATE', clickedCellIndex, context.state.currentPlayer);
             clickedCell.innerHTML = context.state.currentPlayer;
         },
         handleResultValidation(context) {
@@ -83,11 +82,26 @@ export const store = new Vuex.Store({
             this.statusDisplay.innerHTML = context.state.messages[this.currentPlayer]('turn');
         },
         handleRestartGame(context) {
-            context.state.gameActive = true;
-            context.state.currentPlayer = 'X';
-            context.state.statusDisplay.innerHTML = context.state.messages[this.currentPlayer]('turn');
-            context.state.gameState = ['', '', '', '', '', '', '', '', ''];
+            context.commit('SET_GAME_ACTIVE', false);
+            context.commit('SET_CURRENT_PLAYER', 'X');
+            context.commit('SET_GAME_STATE', ['', '', '', '', '', '', '', '', '']);
+            this.statusDisplay.innerHTML = context.state.messages[this.currentPlayer]('turn');
             document.querySelectorAll('.box').forEach(cell => cell.innerHTML = '');
+        },
+    },
+    mutations: {
+        SET_GAME_ACTIVE(state, value) {
+            state.gameActive = value;
+        },
+        SET_CURRENT_PLAYER(state, value) {
+            state.currentPlayer = value;
+        },
+        SET_GAME_STATE(state, value, index = null) {
+            if (index) {
+                state.gameState[index] = value
+            } else {
+                state.gameState = value;
+            }
         },
     },
 });
