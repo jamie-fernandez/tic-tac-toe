@@ -65,7 +65,7 @@ export const store = new Vuex.Store({
             }
 
             //Draw Check
-            let roundDraw = !this.gameState.includes("");
+            let roundDraw = !this.gameState.includes('');
             if (roundDraw) {
                 this.statusDisplay.innerHTML = this.drawMessage;
                 this.gameActive = false;
@@ -74,8 +74,17 @@ export const store = new Vuex.Store({
 
             this.handlePlayerChange();
         },
-        handlePlayerChange() {},
-        handleRestartGame() {}
+        handlePlayerChange() {
+            this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
+            this.statusDisplay.innerHTML = this.currentPlayerTurn;
+        },
+        handleRestartGame() {
+            this.gameActive = true;
+            this.currentPlayer = 'X';
+            this.statusDisplay.innerHTML = this.currentPlayerTurn;
+            this.gameState = ['', '', '', '', '', '', '', '', ''];
+            document.querySelectorAll('.box').forEach(cell => cell.innerHTML = '');
+        }
     },
     mutations: {}
 });
