@@ -1,14 +1,19 @@
 <template>
-    <div class="game-board">
-        <button data-cell-index="1" class="box" @click="handleClick($event)"></button>
-        <button data-cell-index="2" class="box" @click="handleClick($event)"></button>
-        <button data-cell-index="3" class="box" @click="handleClick($event)"></button>
-        <button data-cell-index="4" class="box" @click="handleClick($event)"></button>
-        <button data-cell-index="5" class="box" @click="handleClick($event)"></button>
-        <button data-cell-index="6" class="box" @click="handleClick($event)"></button>
-        <button data-cell-index="7" class="box" @click="handleClick($event)"></button>
-        <button data-cell-index="8" class="box" @click="handleClick($event)"></button>
-        <button data-cell-index="9" class="box" @click="handleClick($event)"></button>
+    <div>
+        <div class="status">
+            {{ statusDisplay }}
+        </div>
+        <div class="game-board">
+            <button data-cell-index="1" class="box" @click="handleClick($event)"></button>
+            <button data-cell-index="2" class="box" @click="handleClick($event)"></button>
+            <button data-cell-index="3" class="box" @click="handleClick($event)"></button>
+            <button data-cell-index="4" class="box" @click="handleClick($event)"></button>
+            <button data-cell-index="5" class="box" @click="handleClick($event)"></button>
+            <button data-cell-index="6" class="box" @click="handleClick($event)"></button>
+            <button data-cell-index="7" class="box" @click="handleClick($event)"></button>
+            <button data-cell-index="8" class="box" @click="handleClick($event)"></button>
+            <button data-cell-index="9" class="box" @click="handleClick($event)"></button>
+        </div>
     </div>
 </template>
 <script>
@@ -62,7 +67,7 @@ export default {
 
             if (roundWon) {
                 this.statusDisplay = this.messages.winner;
-                this.$store.state.gameActive = false;
+                this.SET_GAME_ACTIVE(false);
                 return;
             }
 
@@ -70,15 +75,14 @@ export default {
             let roundDraw = !this.$store.state.gameState.includes('');
             if (roundDraw) {
                 this.statusDisplay = this.messages.draw;
-                this.$store.state.gameActive = false;
+                this.SET_GAME_ACTIVE(false);
                 return;
             }
 
-            this.handlePlayerChange();
+            // this.handlePlayerChange();
         },
-        // Change handlePlayerChange and handleRestartGame to use Mutations
         handlePlayerChange() {
-            this.$store.state.currentPlayer = this.$store.state.currentPlayer === 'X' ? 'O' : 'X';
+            this.SET_CURRENT_PLAYER(this.$store.state.currentPlayer === 'X' ? 'O' : 'X');
             this.statusDisplay = this.messages.turn;
         },
         handleRestartGame(context) {
