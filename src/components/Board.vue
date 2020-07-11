@@ -14,6 +14,9 @@
             <button data-cell-index="8" class="box" @click="handleClick($event)"></button>
             <button data-cell-index="9" class="box" @click="handleClick($event)"></button>
         </div>
+        <div class="options">
+            <button @click="handleRestartGame()">Restart Game</button>
+        </div>
     </div>
 </template>
 <script>
@@ -28,7 +31,7 @@ export default {
             clickedCellIndex: '',
             messages: {
                 'winner': `Player ${this.$store.state.currentPlayer} has won!`,
-                'turn': `It's ${this.$store.state.currentPlayer}/'s turn`,
+                'turn': `It's ${this.$store.state.currentPlayer}'s turn`,
                 'draw': 'Game ended in a draw!',
             },
         }
@@ -84,14 +87,19 @@ export default {
             this.SET_CURRENT_PLAYER(this.$store.state.currentPlayer === 'X' ? 'O' : 'X');
             this.statusDisplay = this.messages.turn;
         },
-        handleRestartGame(context) {
-            context.commit('SET_GAME_ACTIVE', false);
-            context.commit('SET_CURRENT_PLAYER', 'X');
-            context.commit('SET_GAME_STATE', ['', '', '', '', '', '', '', '', '']);
+        handleRestartGame() {
+            this.SET_GAME_ACTIVE(false);
+            this.SET_CURRENT_PLAYER('X');
+            this.RESET_GAME_STATE();
             this.statusDisplay = this.messages.turn;
             document.querySelectorAll('.box').forEach(cell => cell.innerHTML = '');
         },
-        ...mapMutations(['SET_GAME_STATE', 'SET_GAME_ACTIVE']),
+        ...mapMutations([
+            'SET_GAME_STATE',
+            'SET_GAME_ACTIVE',
+            'SET_CURRENT_PLAYER',
+            'RESET_GAME_STATE'
+        ]),
     }
 }
 </script>
