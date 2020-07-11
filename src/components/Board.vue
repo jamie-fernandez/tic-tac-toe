@@ -24,21 +24,24 @@ export default {
                 'turn': `It's ${this.$store.state.currentPlayer}/'s turn`,
                 'draw': 'Game ended in a draw!',
             },
+            clickedCell: '',
+            clickedCellIndex: '',
         }
     },
     methods: {
         handleClick($event) {
-            const clickedCell = $event.target;
-            const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
-            if (this.$store.state.gameState[clickedCellIndex] !== '' || !this.$store.state.gameActive) {
+            this.clickedCell = $event.target;
+            this.clickedCellIndex = parseInt(this.clickedCell.getAttribute('data-cell-index'));
+            if (this.$store.state.gameState[this.clickedCellIndex] !== '' || !this.$store.state.gameActive) {
                 return;
             }
-            this.handleCellPlayed(clickedCell, clickedCellIndex);
+            this.handleCellPlayed();
             this.handleResultValidation();
         },
-        handleCellPlayed(clickedCell, clickedCellIndex) {
-            this.SET_GAME_STATE(clickedCellIndex, this.$store.state.currentPlayer);
-            clickedCell.innerHTML = this.$store.state.currentPlayer;
+        handleCellPlayed() {
+            console.log(this.clickedCellIndex, this.clickedCell);
+            this.SET_GAME_STATE(this.clickedCellIndex, this.$store.state.currentPlayer);
+            this.clickedCell.innerHTML = this.$store.state.currentPlayer;
         },
         handleResultValidation() {
             //Win Check
