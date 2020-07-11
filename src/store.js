@@ -13,11 +13,6 @@ export const store = new Vuex.Store({
         playerSymbol: 'X',
         currentPlayer: 'X',
         gameState: ['', '', '', '', '', '', '', '', ''],
-        messages: {
-            'winner': (currentPlayer) => `Player ${currentPlayer} has won!`,
-            'turn': (currentPlayer) => `It's ${currentPlayer}/'s turn`,
-            'draw': () => 'Game ended in a draw!',
-        },
         winConditions: [
             [0, 1, 2],
             [3, 4, 5],

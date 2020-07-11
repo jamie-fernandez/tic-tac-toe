@@ -19,6 +19,11 @@ export default {
     data() {
         return {
             statusDisplay: '',
+            messages: {
+                'winner': `Player ${this.$store.state.currentPlayer} has won!`,
+                'turn': `It's ${this.$store.state.currentPlayer}/'s turn`,
+                'draw': 'Game ended in a draw!',
+            },
         }
     },
     methods: {
@@ -39,7 +44,7 @@ export default {
             //Win Check
             let roundWon = false;
             for (let i = 0; i <= 7; i++) {
-                const winCondition = this.$store.state.winningConditions[i];
+                const winCondition = this.$store.state.winConditions[i];
                 let a = this.$store.state.gameState[winCondition[0]];
                 let b = this.$store.state.gameState[winCondition[1]];
                 let c = this.$store.state.gameState[winCondition[2]];
@@ -53,7 +58,7 @@ export default {
             }
 
             if (roundWon) {
-                this.statusDisplay = this.$store.state.messages[this.currentPlayer]('winner');
+                this.statusDisplay = this.messages.winner;
                 this.$store.state.gameActive = false;
                 return;
             }
@@ -61,7 +66,7 @@ export default {
             //Draw Check
             let roundDraw = !this.$store.state.gameState.includes('');
             if (roundDraw) {
-                this.statusDisplay = this.$store.state.messages[this.currentPlayer]('draw');
+                this.statusDisplay = this.messages.draw;
                 this.$store.state.gameActive = false;
                 return;
             }
@@ -71,13 +76,13 @@ export default {
         // Change handlePlayerChange and handleRestartGame to use Mutations
         handlePlayerChange() {
             this.$store.state.currentPlayer = this.$store.state.currentPlayer === 'X' ? 'O' : 'X';
-            this.statusDisplay = this.$store.state.messages[this.currentPlayer]('turn');
+            this.statusDisplay = this.messages.turn;
         },
         handleRestartGame(context) {
             context.commit('SET_GAME_ACTIVE', false);
             context.commit('SET_CURRENT_PLAYER', 'X');
             context.commit('SET_GAME_STATE', ['', '', '', '', '', '', '', '', '']);
-            this.statusDisplay = context.state.messages[this.currentPlayer]('turn');
+            this.statusDisplay = this.messages.turn;
             document.querySelectorAll('.box').forEach(cell => cell.innerHTML = '');
         },
         ...mapMutations(['SET_GAME_STATE']),
