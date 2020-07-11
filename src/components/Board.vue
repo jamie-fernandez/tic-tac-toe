@@ -4,6 +4,7 @@
             {{ statusDisplay }}
         </div>
         <div class="game-board">
+            <button data-cell-index="0" class="box" @click="handleClick($event)"></button>
             <button data-cell-index="1" class="box" @click="handleClick($event)"></button>
             <button data-cell-index="2" class="box" @click="handleClick($event)"></button>
             <button data-cell-index="3" class="box" @click="handleClick($event)"></button>
@@ -12,7 +13,6 @@
             <button data-cell-index="6" class="box" @click="handleClick($event)"></button>
             <button data-cell-index="7" class="box" @click="handleClick($event)"></button>
             <button data-cell-index="8" class="box" @click="handleClick($event)"></button>
-            <button data-cell-index="9" class="box" @click="handleClick($event)"></button>
         </div>
         <div class="options">
             <button @click="handleRestartGame()">Restart Game</button>
@@ -43,11 +43,9 @@ export default {
             if (this.$store.state.gameState[this.clickedCellIndex] !== '' || !this.$store.state.gameActive) {
                 return;
             }
-            this.handleCellPlayed();
-            this.handleResultValidation();
-        },
-        handleCellPlayed() {
+
             this.SET_GAME_STATE({index: this.clickedCellIndex, value: this.$store.state.currentPlayer});
+            this.handleResultValidation();
             this.clickedCell.innerHTML = this.$store.state.currentPlayer;
         },
         handleResultValidation() {
