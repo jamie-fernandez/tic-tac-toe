@@ -12,7 +12,7 @@ export const store = new Vuex.Store({
         computerSymbol: 'O',
         playerSymbol: 'X',
         currentPlayer: 'X',
-        gameState: ['', '', '', '', '', '', '', '', ''],
+        gameState: ['', '', '', '', '', '', '', '', '', ''],
         winConditions: [
             [0, 1, 2],
             [3, 4, 5],

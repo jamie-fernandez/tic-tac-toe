@@ -44,7 +44,6 @@ export default {
             this.handleResultValidation();
         },
         handleCellPlayed() {
-            console.log(this.clickedCellIndex, this.clickedCell);
             this.SET_GAME_STATE({index: this.clickedCellIndex, value: this.$store.state.currentPlayer});
             this.clickedCell.innerHTML = this.$store.state.currentPlayer;
         },
@@ -56,9 +55,6 @@ export default {
                 let a = this.$store.state.gameState[winCondition[0]];
                 let b = this.$store.state.gameState[winCondition[1]];
                 let c = this.$store.state.gameState[winCondition[2]];
-                console.log('winCondition - ', winCondition);
-                console.log('Game State', this.$store.state.gameState);
-                console.log('a, b, c', [a, b, c]);
                 if (a === '' || b === '' || c === '') {
                     continue;
                 }
