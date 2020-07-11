@@ -32,12 +32,8 @@ export const store = new Vuex.Store({
         SET_CURRENT_PLAYER(state, value) {
             state.currentPlayer = value;
         },
-        SET_GAME_STATE(state, value, index = null) {
-            if (index) {
-                state.gameState[index] = value
-            } else {
-                state.gameState = value;
-            }
+        SET_GAME_STATE(state, {index, value }) {
+            state.gameState[index] = value
         },
     },
 });

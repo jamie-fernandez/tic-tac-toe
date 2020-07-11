@@ -24,13 +24,13 @@ export default {
     data() {
         return {
             statusDisplay: '',
+            clickedCell: '',
+            clickedCellIndex: '',
             messages: {
                 'winner': `Player ${this.$store.state.currentPlayer} has won!`,
                 'turn': `It's ${this.$store.state.currentPlayer}/'s turn`,
                 'draw': 'Game ended in a draw!',
             },
-            clickedCell: '',
-            clickedCellIndex: '',
         }
     },
     methods: {
@@ -45,7 +45,7 @@ export default {
         },
         handleCellPlayed() {
             console.log(this.clickedCellIndex, this.clickedCell);
-            this.SET_GAME_STATE(this.clickedCellIndex, this.$store.state.currentPlayer);
+            this.SET_GAME_STATE({index: this.clickedCellIndex, value: this.$store.state.currentPlayer});
             this.clickedCell.innerHTML = this.$store.state.currentPlayer;
         },
         handleResultValidation() {
@@ -56,6 +56,9 @@ export default {
                 let a = this.$store.state.gameState[winCondition[0]];
                 let b = this.$store.state.gameState[winCondition[1]];
                 let c = this.$store.state.gameState[winCondition[2]];
+                console.log('winCondition - ', winCondition);
+                console.log('Game State', this.$store.state.gameState);
+                console.log('a, b, c', [a, b, c]);
                 if (a === '' || b === '' || c === '') {
                     continue;
                 }
@@ -92,7 +95,7 @@ export default {
             this.statusDisplay = this.messages.turn;
             document.querySelectorAll('.box').forEach(cell => cell.innerHTML = '');
         },
-        ...mapMutations(['SET_GAME_STATE']),
+        ...mapMutations(['SET_GAME_STATE', 'SET_GAME_ACTIVE']),
     }
 }
 </script>
