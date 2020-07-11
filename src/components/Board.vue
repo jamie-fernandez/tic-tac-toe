@@ -17,18 +17,13 @@
         <div class="options">
             <button @click="handleRestartGame()">Restart Game</button>
         </div>
-        <SettingsPrompt />
     </div>
 </template>
 <script>
 import { mapMutations } from 'vuex';
-import SettingsPrompt from '@/SettingsPrompt';
 
 export default {
     name: 'Board',
-    components: {
-        SettingsPrompt
-    },
     data() {
         return {
             statusDisplay: '',
