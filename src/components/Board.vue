@@ -86,7 +86,7 @@ export default {
             this.statusDisplay = this.messages.turn;
         },
         handleRestartGame() {
-            this.SET_GAME_ACTIVE(false);
+            this.SET_GAME_ACTIVE(true);
             this.SET_CURRENT_PLAYER('X');
             this.RESET_GAME_STATE();
             this.statusDisplay = this.messages.turn;
