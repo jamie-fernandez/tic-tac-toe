@@ -8,7 +8,7 @@ export const store = new Vuex.Store({
     state: {
         isGameOver: false,
         isPlayersTurn: true,
-        gameActive: true, // User will need a way to start game later
+        gameActive: false, // User will need a way to start game later
         computerSymbol: 'O',
         playerSymbol: 'X',
         currentPlayer: 'X',

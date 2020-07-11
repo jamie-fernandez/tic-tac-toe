@@ -3,6 +3,7 @@
       <p class="title">Tic Tac Toe</p>
       <SettingsPrompt/>
       <Board/>
+      <!-- <button @click="$bvModal.show('SettingsPrompt')"> Settings </button> -->
     </div>
 </template>
 
@@ -15,5 +16,10 @@ export default {
         Board,
         SettingsPrompt,
     },
+    mounted() {
+        if (!this.$store.state.gameActive) {
+            this.$bvModal.show('SettingsPrompt');
+        }
+    }
 }
 </script>

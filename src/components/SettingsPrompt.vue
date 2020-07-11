@@ -1,7 +1,7 @@
 <template>
     <b-modal
-        id="modal-1"
-        title="BootstrapVue"
+        id="SettingsPrompt"
+        title="SettingsPrompt"
     >
         <p class="my-4">Hello from modal!</p>
     </b-modal>
