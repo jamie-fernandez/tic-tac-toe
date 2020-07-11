@@ -12,15 +12,75 @@
     </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
+import { mapMutations } from 'vuex';
 
 export default {
     name: 'Board',
     data() {
-        return {}
+        return {
+            statusDisplay: '',
+        }
     },
     methods: {
-        ...mapActions(['handleClick']),
+        handleClick($event) {
+            const clickedCell = $event.target;
+            const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
+            if (this.$store.state.gameState[clickedCellIndex] !== '' || !this.$store.state.gameActive) {
+                return;
+            }
+            this.handleCellPlayed(clickedCell, clickedCellIndex);
+            this.handleResultValidation();
+        },
+        handleCellPlayed(clickedCell, clickedCellIndex) {
+            this.SET_GAME_STATE(clickedCellIndex, this.$store.state.currentPlayer);
+            clickedCell.innerHTML = this.$store.state.currentPlayer;
+        },
+        handleResultValidation() {
+            //Win Check
+            let roundWon = false;
+            for (let i = 0; i <= 7; i++) {
+                const winCondition = this.$store.state.winningConditions[i];
+                let a = this.$store.state.gameState[winCondition[0]];
+                let b = this.$store.state.gameState[winCondition[1]];
+                let c = this.$store.state.gameState[winCondition[2]];
+                if (a === '' || b === '' || c === '') {
+                    continue;
+                }
+                if (a === b && b === c) {
+                    roundWon = true;
+                    break
+                }
+            }
+
+            if (roundWon) {
+                this.statusDisplay = this.$store.state.messages[this.currentPlayer]('winner');
+                this.$store.state.gameActive = false;
+                return;
+            }
+
+            //Draw Check
+            let roundDraw = !this.$store.state.gameState.includes('');
+            if (roundDraw) {
+                this.statusDisplay = this.$store.state.messages[this.currentPlayer]('draw');
+                this.$store.state.gameActive = false;
+                return;
+            }
+
+            this.handlePlayerChange();
+        },
+        // Change handlePlayerChange and handleRestartGame to use Mutations
+        handlePlayerChange() {
+            this.$store.state.currentPlayer = this.$store.state.currentPlayer === 'X' ? 'O' : 'X';
+            this.statusDisplay = this.$store.state.messages[this.currentPlayer]('turn');
+        },
+        handleRestartGame(context) {
+            context.commit('SET_GAME_ACTIVE', false);
+            context.commit('SET_CURRENT_PLAYER', 'X');
+            context.commit('SET_GAME_STATE', ['', '', '', '', '', '', '', '', '']);
+            this.statusDisplay = context.state.messages[this.currentPlayer]('turn');
+            document.querySelectorAll('.box').forEach(cell => cell.innerHTML = '');
+        },
+        ...mapMutations(['SET_GAME_STATE']),
     }
 }
 </script>
