@@ -1,5 +1,6 @@
 module.exports = {
-    devServer: {
-      disableHostCheck: true
-    }
+  publicPath: '/tic-tac-toe/',
+  devServer: {
+    disableHostCheck: true
+  }
 }
