@@ -4,6 +4,9 @@
         title="Game Settings"
         ok-title="Start Game"
         ok-only
+        no-close-on-esc
+        no-close-on-backdrop
+        hide-header-close
         @ok="startGame"
     >
       <form ref="form" @submit.stop.prevent="handleSubmit">
