@@ -9,7 +9,7 @@
         hide-header-close
         @ok="startGame"
     >
-      <form ref="form" @submit.stop.prevent="handleSubmit">
+      <form ref="form" @submit.stop.prevent="startGame">
         <b-form-group
           label="Choose Opponent"
           label-for="opponent-input"
@@ -27,7 +27,7 @@
         >
             <b-form-radio-group
                 id="symbol-radio-group"
-                v-model="selectSymbol"
+                v-model="selectedSymbol"
                 name="symbol-radio-options"
                 :options="optionsSymbol"
             />
@@ -48,20 +48,26 @@ export default {
           { text: 'Human', value: 'human' },
           { text: 'Computer', value: 'computer' },
         ],
-        selectSymbol: 'X',
+        selectedSymbol: 'X',
         optionsSymbol: [
           { text: 'X', value: 'X' },
           { text: 'O', value: 'O' },
-        ]
+        ],
       }
     },
     methods: {
-        handleSubmit() {},
         startGame() {
+            let opponentSymbol = (this.selectedSymbol === 'X' ? 'O' : 'X');
+            this.SET_PLAYER_SYMBOL(this.selectedSymbol);
+            this.SET_OPPONENT_SYMBOL(opponentSymbol);
+            this.SET_OPPONENT_TYPE(this.selectedOpponent);
             this.SET_GAME_ACTIVE(true);
         },
         ...mapMutations([
             'SET_GAME_ACTIVE',
+            'SET_PLAYER_SYMBOL',
+            'SET_OPPONENT_SYMBOL',
+            'SET_OPPONENT_TYPE',
         ]),
     }
 }

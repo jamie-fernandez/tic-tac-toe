@@ -8,10 +8,11 @@ export const store = new Vuex.Store({
     state: {
         isGameOver: false,
         isPlayersTurn: true,
-        gameActive: false, // User will need a way to start game later
-        computerSymbol: 'O',
-        playerSymbol: 'X',
-        currentPlayer: 'X',
+        gameActive: false,
+        opponentSymbol: '',
+        opponentType: '',
+        playerSymbol: '',
+        currentPlayer: '',
         gameState: ['', '', '', '', '', '', '', '', '', ''],
         winConditions: [
             [0, 1, 2],
@@ -26,6 +27,15 @@ export const store = new Vuex.Store({
     },
     actions: {},
     mutations: {
+        SET_OPPONENT_TYPE(state, value) {
+            state.opponentType = value;
+        },
+        SET_OPPONENT_SYMBOL(state, value) {
+            state.opponentSymbol = value;
+        },
+        SET_PLAYER_SYMBOL(state, value) {
+            state.playerSymbol = value;
+        },
         SET_GAME_ACTIVE(state, value) {
             state.gameActive = value;
         },
