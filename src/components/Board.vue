@@ -20,7 +20,7 @@
     </div>
 </template>
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapActions } from 'vuex';
 
 export default {
     name: 'Board',
@@ -29,12 +29,14 @@ export default {
             statusDisplay: '',
             clickedCell: '',
             clickedCellIndex: '',
-            messages: {
-                'winner': `Player ${this.$store.state.currentPlayer} has won!`,
-                'turn': `It's ${this.$store.state.currentPlayer}'s turn`,
-                'draw': 'Game ended in a draw!',
-            },
         }
+    },
+    computed: {
+        ...mapActions([
+            'winnerMessage',
+            'turnMessage',
+            'drawMessage',
+        ])
     },
     methods: {
         handleClick($event) {
@@ -48,7 +50,7 @@ export default {
             this.handleResultValidation();
             this.clickedCell.innerHTML = this.$store.state.currentPlayer;
         },
-        handleResultValidation() {
+        async handleResultValidation() {
             //Win Check
             let roundWon = false;
             for (let i = 0; i <= 7; i++) {
@@ -66,7 +68,7 @@ export default {
             }
 
             if (roundWon) {
-                this.statusDisplay = this.messages.winner;
+                this.statusDisplay = await this.winnerMessage;
                 this.SET_GAME_ACTIVE(false);
                 return;
             }
@@ -74,22 +76,22 @@ export default {
             //Draw Check
             let roundDraw = !this.$store.state.gameState.includes('');
             if (roundDraw) {
-                this.statusDisplay = this.messages.draw;
+                this.statusDisplay = await this.drawMessage;
                 this.SET_GAME_ACTIVE(false);
                 return;
             }
 
-            // this.handlePlayerChange();
+            this.handlePlayerChange();
         },
-        handlePlayerChange() {
+        async handlePlayerChange() {
             this.SET_CURRENT_PLAYER(this.$store.state.currentPlayer === 'X' ? 'O' : 'X');
-            this.statusDisplay = this.messages.turn;
+            this.statusDisplay = await this.turnMessage;
         },
-        handleRestartGame() {
+        async handleRestartGame() {
             this.SET_GAME_ACTIVE(true);
             this.SET_CURRENT_PLAYER('X');
             this.RESET_GAME_STATE();
-            this.statusDisplay = this.messages.turn;
+            this.statusDisplay = await this.turnMessage;
             document.querySelectorAll('.box').forEach(cell => cell.innerHTML = '');
         },
         ...mapMutations([

@@ -4,7 +4,6 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-    getters: {},
     state: {
         isGameOver: false,
         isPlayersTurn: true,
@@ -25,7 +24,17 @@ export const store = new Vuex.Store({
             [2, 4, 6]
         ],
     },
-    actions: {},
+    actions: {
+        winnerMessage() {
+            return `Player ${this.state.currentPlayer} has won!`;
+        },
+        turnMessage() {
+            return `It's ${this.state.currentPlayer}'s turn`;
+        },
+        drawMessage() {
+            return `Game ended in a draw!`;
+        },
+    },
     mutations: {
         SET_OPPONENT_TYPE(state, value) {
             state.opponentType = value;
