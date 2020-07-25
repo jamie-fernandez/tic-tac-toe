@@ -9,7 +9,7 @@
         hide-header-close
         @ok="startGame"
     >
-      <form ref="form" @submit.stop.prevent="startGame">
+      <form ref="form" @submit.prevent="startGame">
         <b-form-group
           label="Choose Opponent"
           label-for="opponent-input"
@@ -61,6 +61,7 @@ export default {
             this.SET_PLAYER_SYMBOL(this.selectedSymbol);
             this.SET_OPPONENT_SYMBOL(opponentSymbol);
             this.SET_OPPONENT_TYPE(this.selectedOpponent);
+            this.SET_CURRENT_PLAYER(this.selectedSymbol);
             this.SET_GAME_ACTIVE(true);
         },
         ...mapMutations([
@@ -68,6 +69,7 @@ export default {
             'SET_PLAYER_SYMBOL',
             'SET_OPPONENT_SYMBOL',
             'SET_OPPONENT_TYPE',
+            'SET_CURRENT_PLAYER'
         ]),
     }
 }
